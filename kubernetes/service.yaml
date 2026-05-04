@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: evaluation-service
+  labels:
+    app: evaluation-service
+spec:
+  selector:
+    app: evaluation-service
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8004 # Mesma porta exposta no Deployment
+  type: ClusterIP

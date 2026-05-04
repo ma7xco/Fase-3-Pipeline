@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: evaluation-service
+  labels:
+    app: evaluation-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: evaluation-service
+  template:
+    metadata:
+      labels:
+        app: evaluation-service
+    spec:
+      containers:
+      - name: evaluation-service
+        # Esta linha será substituída pelo GitOps na hora do Pipeline!
+        image: REPLACE_ME_IMAGE_URL/evaluation-service:latest
+        ports:
+        - containerPort: 8004 # Ajuste para a porta que seu container expõe
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "100m"
+          limits:
+            memory: "256Mi"
+            cpu: "200m"
+        # Adicione aqui as variáveis de ambiente que a aplicação espera (ex: filas SQS, etc)
+        env:
+        - name: ENV_NAME
+          value: "production"
